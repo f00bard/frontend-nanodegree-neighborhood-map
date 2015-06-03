@@ -72,7 +72,7 @@ app.Place = function(map, id, place) {
     // Thanks to Mark N at Udacity for the OAuth help (http://discussions.udacity.com/t/how-to-make-ajax-request-to-yelp-api/13699/5?u=mack_322358)
     this.getApiData = function() {
         var nonce = (Math.floor(Math.random() * 1e12).toString());
-        var yelpUrl = 'http://api.yelp.com/v2/business/' + self.yelp;
+        var yelpUrl = '//api.yelp.com/v2/business/' + self.yelp;
         var parameters = {
             oauth_consumer_key: 'xkM3I-UlkwbxHbKf8BJJLA',
             oauth_token: 'F1PMaYbG4p5cfayKlTLw_aHEbaPP68O0',
