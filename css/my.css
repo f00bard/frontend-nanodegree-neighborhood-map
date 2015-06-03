@@ -1,0 +1,49 @@
+.title {
+	text-align: center;
+	padding: 5px;
+}
+
+#map-canvas {
+    height: 432px;
+    margin: 0px;
+    padding: 0px;
+}
+
+#places {
+	list-style-type: none;
+	margin-top: 15px;
+	padding-left: 5px;
+}
+
+.search-box {
+	margin: 10px;
+    padding-left: 5px;
+}
+
+.place {
+    border-top: 1px solid black;
+    padding: 5px;
+    margin-left: 10px;
+}
+
+.place:last-child {
+	border-bottom: 1px solid black;
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+    #map-canvas {
+        height: 576px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    #map-canvas {
+        height: 744px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #map-canvas {
+        height: 900px;
+    }
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Neighborhood Map</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="css/my.css"></link>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDAmN9vJ_JfKGdKRyzEU2QL43IRPxe6WDw"></script>
+    <script src="js/lib/jquery-1.11.2.min.js"></script>
+    <script src="js/lib/knockout-3.3.0.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/oauth-signature.min.js"></script>
+    <script src="js/models/place.js"></script>
+    <script src="js/places.js"></script>
+    <script src="js/app.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <h2 class="title">Neighborhood Map</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="search-box">
+                    <input type="text" name="search" id="searchBox" placeholder="Filter places..." data-bind="value: searchText, valueUpdate: 'keyup'">
+                </div>
+                <ul id="places" data-bind="foreach: filteredPlaces">
+                    <li class="place" data-bind="attr: { id: 'list-item-' + $index() }, css: { 'bg-info': $data == $root.selectedPlace() }, click: $root.handlePlaceClick">
+                        <h3 class="place-title" data-bind="text: title"></h3>
+                        <p class="place-description" data-bind="text: description"></p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-8">
+                <div id="map-canvas"></div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
