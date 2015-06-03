@@ -44,12 +44,6 @@ $(function() {
                     map.setZoom(11);
                     map.panTo(Orlando);
                 } else {
-                    // Hide any already open InfoWindows
-                    // $.each(filteredPlaces(), function(i,p) {
-                    //     if(p.infoWindow) {
-                    //         closeInfoWindow(p);
-                    //     }
-                    // });
                     selectedPlace(place);
                     place.selected(true);
                     map.setZoom(14);
@@ -61,10 +55,10 @@ $(function() {
 
         // This is our "public" interface, using the revealing module pattern
         return {
-            handlePlaceClick: handlePlaceClick,
             selectedPlace: selectedPlace,
             searchText: searchText,
-            filteredPlaces: filteredPlaces
+            filteredPlaces: filteredPlaces,
+            handlePlaceClick: handlePlaceClick
         };
     })();
 

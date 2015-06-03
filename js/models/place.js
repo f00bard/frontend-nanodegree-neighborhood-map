@@ -44,7 +44,12 @@ app.Place = function(map, id, place) {
     // Frustrating... The InfoWindow adds to the DOM tree so Knockout bindings don't get applied.
     // Work around by building content string manually, yuck.
     this.infoWindow = new google.maps.InfoWindow({
-        content: '<div><h3>' + self.title + '</h3><p>' + self.description + '</p><hr/><div id="info-window-' + id + '"><i class="fa fa-spinner fa-spin"></i>&nbsp;Loading...</div></div>'
+        content: '<div><h3>'+self.title+'</h3><p>'+self.description+'</p><hr/><div id="info-window-'+self.id+'"></div></div>'
+    });
+
+    // If InfoWindow is closed by clicking close update the model
+    google.maps.event.addListener(this.infoWindow, 'closeclick', function() {
+        self.selected(false);
     });
 
     // Subscribe to apiData to update InfoWindow content once loaded
@@ -62,10 +67,6 @@ app.Place = function(map, id, place) {
             self.infoWindow.close();
         }
     });
-
-    // HTML "templates"
-    var success = "";
-    var errorString = "<i class=\"fa fa-exclamation-triangle\"></i>&nbsp;Error loading data!";
 
     // Function to get third party API data. Updates apiData observable. Handles timeout/error conditions.
     // Thanks to Mark N at Udacity for the OAuth help (http://discussions.udacity.com/t/how-to-make-ajax-request-to-yelp-api/13699/5?u=mack_322358)
@@ -92,15 +93,25 @@ app.Place = function(map, id, place) {
             data: parameters,
             cache: true,
             dataType: 'jsonp',
-            timeout: 500,
+            timeout: 5000, // 5 second timeout
             success: function(results) {
-                console.log(results);
+                var html = ich.results(results);
+                self.apiData(html);
             },
             error: function (parsedjson, textStatus, errorThrown) {
-                self.apiData(errorString);
+                console.log(textStatus);
+                // Display error message on failure to load
+                self.apiData(ich.errormessage(self));
             }
         };
 
+        // Display loading message while we run our query
+        self.apiData(ich.loadingmessage({}));
+
+        // Make the actual AJAX call
         $.ajax(settings);
     };
+
+    // Get ICanHaz templates
+    ich.grabTemplates();
 };

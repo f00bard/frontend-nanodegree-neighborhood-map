@@ -30,6 +30,64 @@
 	border-bottom: 1px solid black;
 }
 
+.stars {
+    background: transparent url('../img/stars_map@2x.png') 0 -362px;
+}
+
+.rating {
+    font-size: 0;
+    height: 24px;
+    overflow: hidden;
+    vertical-align: middle;
+    width: 110px;
+    display: block;
+}
+
+.r0 {
+    background-position: 0 -362px;
+}
+
+.r1 {
+    background-position: 0 -386px;
+}
+
+.r1\.5 {
+    background-position: 0 -410px;
+}
+
+.r2 {
+    background-position: 0 -434px;
+}
+
+.r2\.5 {
+    background-position: 0 -458px;
+}
+
+.r3 {
+    background-position: 0 -482px;
+}
+
+.r3\.5 {
+    background-position: 0 -506px;
+}
+
+.r4 {
+    background-position: 0 -530px;
+}
+
+.r4\.5 {
+    background-position: 0 -554px;
+}
+
+.r5 {
+    background-position: 0 -578px;
+}
+
+
+#yelp-logo {
+    float: right;
+}
+
 @media (min-width: 768px) and (max-width: 992px) {
     #map-canvas {
         height: 576px;

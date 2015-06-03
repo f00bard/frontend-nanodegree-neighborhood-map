@@ -12,6 +12,7 @@
     <script src="js/lib/jquery-1.11.2.min.js"></script>
     <script src="js/lib/knockout-3.3.0.js"></script>
     <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/lib/ICanHaz.min.js"></script>
     <script src="js/lib/oauth-signature.min.js"></script>
     <script src="js/models/place.js"></script>
     <script src="js/places.js"></script>
@@ -40,6 +41,36 @@
             </div>
         </div>
     </div>
+    <script type="text/html" id="placeheader">
+        <div>
+            <h3>{{title}}</h3>
+            <p>{{description}}</p>
+            <hr/>
+            <div id="info-window-{{id}}"></div>
+        </div>
+    </script>
+    <script type="text/html" id="loadingmessage">
+        <div>
+            <i class="fa fa-spinner fa-spin"></i>&nbsp;<span>Loading...</span>
+        </div>
+    </script>
+    <script type="text/html" id="errormessage">
+        <div>
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;<span>Error loading data!</span>
+        </div>
+    </script>
+    <script type="text/html" id="results">
+        <p><b>Rating:</b>&nbsp;<span class="stars rating r{{rating}}">{{rating}}</span></p>
+        <p><b>Phone:</b>&nbsp;{{display_phone}}</p>
+        <div style="width: 100%">
+            <h4>Reviews:</h4>
+            <p>
+                {{#reviews}}
+                <span>{{excerpt}}</span> {{/reviews}}
+            </p>
+            <div id="yelp-logo"><img src="img/yelp_logo_50x25.png" alt="Yelp!" /></div>
+        </div>
+    </script>
 </body>
 
 </html>
