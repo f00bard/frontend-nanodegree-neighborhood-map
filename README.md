@@ -1,7 +1,7 @@
 Project 5: Neighborhood Map
 ===========================
 
-If you'd like to see my Neighborhood Map project in action, visit my [GitHub.io project page](https://f00bard.github.io/frontend-nanodegree-mobile-portfolio)
+If you'd like to see my Neighborhood Map project in action, visit my [GitHub.io project page](https://f00bard.github.io/frontend-nanodegree-neighborhood-map)
 
 
 Challenges
