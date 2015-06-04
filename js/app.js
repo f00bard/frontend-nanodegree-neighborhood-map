@@ -15,6 +15,10 @@ $(function() {
                 zoom: 11
             }),
 
+            infoWindow = new google.maps.InfoWindow({
+                content: ''
+            }),
+
             // Filtered places will be the observeable exposed to the View, filtered based on
             // contents of searchText observable.
             // Using this pattern to filter our Google Maps pins: http://stackoverflow.com/a/20857972
@@ -35,22 +39,33 @@ $(function() {
                 $.each(app.places.Places, function(i, p) {
                     places.push(new app.Place(map, i, p));
                 });
+
+                selectedPlace.subscribe(function(place) {
+                    if (place !== undefined) {
+                        console.log(place);
+                        infoWindow.setContent(place.description);
+                        infoWindow.open(map, place.marker);
+
+                    } else {
+                        infoWindow.close();
+                    }
+                });
+
+                google.maps.event.addListener(infoWindow, 'closeclick', function() {
+                    selectedPlace(undefined);
+                });
             },
 
             handlePlaceClick = function(place) {
                 if (place === selectedPlace()) {
                     // If no place selected return map to starting position/zoom level
                     selectedPlace(undefined);
-                    place.selected(false);
-                    map.setZoom(11);
-                    map.panTo(Orlando);
                 } else {
                     selectedPlace(place);
-                    place.selected(true);
-                    map.setZoom(14);
-                    map.panTo(place.position);
                 }
             };
+
+
 
         initialize();
 

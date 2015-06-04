@@ -15,23 +15,36 @@
 }
 
 .places {
-    list-style-type: none;
-    margin-top: 15px;
-    padding-left: 5px;
+    border: none;
 }
 
 .place {
-    border-top: 1px solid black;
-    padding: 5px;
-    margin-left: 10px;
+    margin-bottom: 0;
 }
 
-.place:last-child {
-    border-bottom: 1px solid black;
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
 }
 
 .stars {
-    background: transparent url('../img/stars_map@2x.png') 0 -362px;
+    background: transparent url(../img/stars_map@2x.png) 0 -362px;
 }
 
 .rating {

@@ -4,6 +4,7 @@ app.Place = function(map, id, place) {
     "use strict";
     var self = this;
 
+    this.id = id;
     this.title = place.title;
     this.description = place.description;
     this.lat = place.lat;
@@ -41,32 +42,6 @@ app.Place = function(map, id, place) {
     // Initialized as false then set true here so callback is called on page load and marker is made visible
     this.isVisible(true);
 
-    // Frustrating... The InfoWindow adds to the DOM tree so Knockout bindings don't get applied.
-    // Work around by building content string manually, yuck.
-    this.infoWindow = new google.maps.InfoWindow({
-        content: '<div><h3>' + self.title + '</h3><p>' + self.description + '</p><hr/><div id="info-window-' + self.id + '"></div></div>'
-    });
-
-    // If InfoWindow is closed by clicking close update the model
-    google.maps.event.addListener(this.infoWindow, 'closeclick', function() {
-        self.selected(false);
-    });
-
-    // Subscribe to apiData to update InfoWindow content once loaded
-    this.apiData.subscribe(function(data) {
-        var element = $("#info-window-" + self.id);
-        element.html(data);
-    });
-
-    // Subscribe to selected state so we can open/close the info window when selected == true
-    this.selected.subscribe(function(state) {
-        if (state) {
-            self.infoWindow.open(map, self.marker);
-            self.getApiData();
-        } else {
-            self.infoWindow.close();
-        }
-    });
 
     // Function to get third party API data. Updates apiData observable. Handles timeout/error conditions.
     // Thanks to Mark N at Udacity for the OAuth help (http://discussions.udacity.com/t/how-to-make-ajax-request-to-yelp-api/13699/5?u=mack_322358)
