@@ -80,7 +80,4 @@ app.Place = function(map, id, place) {
         // Make the actual AJAX call
         $.ajax(settings);
     };
-
-    // Get ICanHaz templates
-    ich.grabTemplates();
 };

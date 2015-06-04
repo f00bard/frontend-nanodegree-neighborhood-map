@@ -12,7 +12,7 @@ $(function() {
 
             map = new google.maps.Map($('#map-canvas')[0], {
                 center: Orlando,
-                zoom: 10
+                zoom: 11
             }),
 
             // Create a single InfoWindow so that only one is open at any given time
@@ -46,20 +46,48 @@ $(function() {
                 });
 
                 // Handle clicking the close button in the InfoWindow
-                google.maps.event.addListener(infoWindow, 'closeclick', function(butts) {
+                google.maps.event.addListener(infoWindow, 'closeclick', function() {
                     updateSelectedPlace(undefined);
                 });
+
+                // Recenter when map size changes
+                google.maps.event.addListener(map, 'bounds_changed', function() {
+                    if (selectedPlace() !== undefined) {
+                        map.setCenter(selectedPlace().position);
+                    } else {
+                        map.setCenter(Orlando);
+                    };
+                })
+
+                // Get ICanHaz templates
+                ich.grabTemplates();
             },
 
             // Here is where the magic happens
             updateSelectedPlace = function(place) {
-                if(place === undefined) {
+                if (place === undefined) {
+                    // Close accordian
                     $('#collapse' + selectedPlace().id).collapse('hide');
+
+                    // Close InfoWindow
                     infoWindow.close();
+
+                    // Recenter map
+                    map.panTo(Orlando);
                 } else {
-                    $('#collapse' + place.id).collapse({parent : '#accordion', toggle: true});
-                    infoWindow.setContent(place.title);
+                    // Open accordion
+                    $('#collapse' + place.id).collapse({
+                        parent: '#accordion',
+                        toggle: true
+                    }).collapse('show');
+
+                    // Show InfoWindow with title
+                    var content = ich.infowindow(place);
+                    infoWindow.setContent(content[0].innerHTML);
                     infoWindow.open(map, place.marker);
+
+                    // Pan to place
+                    map.panTo(place.position);
 
                     // Model is responsible for fetching the data
                     place.getApiData();
