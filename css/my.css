@@ -1,22 +1,22 @@
 .title {
-	text-align: center;
-	padding: 5px;
+    text-align: center;
+    padding: 5px;
 }
 
-#map-canvas {
+.map {
     height: 432px;
     margin: 0px;
     padding: 0px;
 }
 
-#places {
-	list-style-type: none;
-	margin-top: 15px;
-	padding-left: 5px;
+.search-box {
+    margin: 10px;
+    padding-left: 5px;
 }
 
-.search-box {
-	margin: 10px;
+.places {
+    list-style-type: none;
+    margin-top: 15px;
     padding-left: 5px;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .place:last-child {
-	border-bottom: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .stars {
@@ -82,7 +82,6 @@
 .r5 {
     background-position: 0 -578px;
 }
-
 
 #yelp-logo {
     float: right;

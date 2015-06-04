@@ -2,9 +2,10 @@ var app = app || {};
 
 $(function() {
     app.viewModel = (function() {
+        "use strict";
+
         // Some view model properties
-        var self = this,
-            places = ko.observableArray([]),
+        var places = ko.observableArray(),
             selectedPlace = ko.observable(),
             searchText = ko.observable(''),
             Orlando = new google.maps.LatLng(28.541047, -81.389074),
@@ -47,7 +48,7 @@ $(function() {
                     selectedPlace(place);
                     place.selected(true);
                     map.setZoom(14);
-                    map.panTo(place.position)
+                    map.panTo(place.position);
                 }
             };
 

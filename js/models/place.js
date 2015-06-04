@@ -1,15 +1,15 @@
 var app = app || {};
 
 app.Place = function(map, id, place) {
+    "use strict";
     var self = this;
 
-    this.id = id; // Index from View Model
     this.title = place.title;
     this.description = place.description;
     this.lat = place.lat;
     this.lon = place.lon;
     this.url = place.url;
-    this.placeId = place.placeId
+    this.placeId = place.placeId;
     this.yelp = place.yelp;
 
     this.selected = ko.observable(false);
@@ -44,7 +44,7 @@ app.Place = function(map, id, place) {
     // Frustrating... The InfoWindow adds to the DOM tree so Knockout bindings don't get applied.
     // Work around by building content string manually, yuck.
     this.infoWindow = new google.maps.InfoWindow({
-        content: '<div><h3>'+self.title+'</h3><p>'+self.description+'</p><hr/><div id="info-window-'+self.id+'"></div></div>'
+        content: '<div><h3>' + self.title + '</h3><p>' + self.description + '</p><hr/><div id="info-window-' + self.id + '"></div></div>'
     });
 
     // If InfoWindow is closed by clicking close update the model
@@ -98,8 +98,8 @@ app.Place = function(map, id, place) {
                 var html = ich.results(results);
                 self.apiData(html);
             },
-            error: function (parsedjson, textStatus, errorThrown) {
-                console.log(textStatus);
+            error: function(parsedjson, textStatus, errorThrown) {
+                // console.log(textStatus);
                 // Display error message on failure to load
                 self.apiData(ich.errormessage(self));
             }
