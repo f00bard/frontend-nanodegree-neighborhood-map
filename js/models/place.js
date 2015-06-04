@@ -17,17 +17,12 @@ app.Place = function(map, id, place) {
     this.isVisible = ko.observable(false);
     this.apiData = ko.observable();
 
-    // Google Maps
+    // Google Maps stuff
     this.position = new google.maps.LatLng(place.lat, place.lon);
 
     this.marker = new google.maps.Marker({
         position: self.position,
         animation: google.maps.Animation.DROP
-    });
-
-    // Click handler toggles value of selected var
-    google.maps.event.addListener(this.marker, 'click', function() {
-        self.selected(!self.selected());
     });
 
     // Subscribe to the visible observable for showing/hiding the marker
@@ -41,7 +36,6 @@ app.Place = function(map, id, place) {
 
     // Initialized as false then set true here so callback is called on page load and marker is made visible
     this.isVisible(true);
-
 
     // Function to get third party API data. Updates apiData observable. Handles timeout/error conditions.
     // Thanks to Mark N at Udacity for the OAuth help (http://discussions.udacity.com/t/how-to-make-ajax-request-to-yelp-api/13699/5?u=mack_322358)

@@ -12,9 +12,10 @@ $(function() {
 
             map = new google.maps.Map($('#map-canvas')[0], {
                 center: Orlando,
-                zoom: 11
+                zoom: 10
             }),
 
+            // Create a single InfoWindow so that only one is open at any given time
             infoWindow = new google.maps.InfoWindow({
                 content: ''
             }),
@@ -37,35 +38,43 @@ $(function() {
             initialize = function() {
                 // Initialize our list of places from the hard coded data in the model.
                 $.each(app.places.Places, function(i, p) {
-                    places.push(new app.Place(map, i, p));
+                    var newPlace = new app.Place(map, i, p)
+                    google.maps.event.addListener(newPlace.marker, 'click', function() {
+                        updateSelectedPlace(newPlace);
+                    });
+                    places.push(newPlace);
                 });
 
-                selectedPlace.subscribe(function(place) {
-                    if (place !== undefined) {
-                        console.log(place);
-                        infoWindow.setContent(place.description);
-                        infoWindow.open(map, place.marker);
-
-                    } else {
-                        infoWindow.close();
-                    }
+                // Handle clicking the close button in the InfoWindow
+                google.maps.event.addListener(infoWindow, 'closeclick', function(butts) {
+                    updateSelectedPlace(undefined);
                 });
+            },
 
-                google.maps.event.addListener(infoWindow, 'closeclick', function() {
-                    selectedPlace(undefined);
-                });
+            // Here is where the magic happens
+            updateSelectedPlace = function(place) {
+                if(place === undefined) {
+                    $('#collapse' + selectedPlace().id).collapse('hide');
+                    infoWindow.close();
+                } else {
+                    $('#collapse' + place.id).collapse({parent : '#accordion', toggle: true});
+                    infoWindow.setContent(place.title);
+                    infoWindow.open(map, place.marker);
+
+                    // Model is responsible for fetching the data
+                    place.getApiData();
+                }
+
+                selectedPlace(place);
             },
 
             handlePlaceClick = function(place) {
                 if (place === selectedPlace()) {
-                    // If no place selected return map to starting position/zoom level
-                    selectedPlace(undefined);
+                    updateSelectedPlace(undefined);
                 } else {
-                    selectedPlace(place);
+                    updateSelectedPlace(place);
                 }
             };
-
-
 
         initialize();
 
@@ -77,6 +86,16 @@ $(function() {
             handlePlaceClick: handlePlaceClick
         };
     })();
+
+    // Custom binding so we can use bind ICH templates using KO
+    // http://stackoverflow.com/a/14762251
+    ko.bindingHandlers.element = {
+        update: function(element, valueAccessor) {
+            var elem = ko.utils.unwrapObservable(valueAccessor());
+            $(element).empty();
+            $(element).append(elem);
+        }
+    };
 
     ko.applyBindings(app.viewModel);
 });

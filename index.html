@@ -47,8 +47,7 @@
                                         <h4 class="panel-title" data-bind="text: title"></h4>
                                     </div>
                                     <div class="panel-collapse collapse" data-bind="attr: { id: 'collapse'+id }">
-                                        <div class="panel-body">
-                                            <i class="fa fa-spinner fa-spin"></i>&nbsp;<span>Loading...</span>
+                                        <div class="panel-body" data-bind="element: apiData">
                                         </div>
                                     </div>
                                 </div>
@@ -63,14 +62,6 @@
             </div>
         </div>
     </div>
-    <script type="text/html" id="placeheader">
-        <div>
-            <h3>{{title}}</h3>
-            <p>{{description}}</p>
-            <hr/>
-            <div id="info-window-{{id}}"></div>
-        </div>
-    </script>
     <script type="text/html" id="loadingmessage">
         <div>
             <i class="fa fa-spinner fa-spin"></i>&nbsp;<span>Loading...</span>
@@ -88,7 +79,8 @@
             <h4>Reviews:</h4>
             <p>
                 {{#reviews}}
-                <span>{{excerpt}}</span> {{/reviews}}
+                <span>{{excerpt}}</span>
+                {{/reviews}}
             </p>
             <div id="yelp-logo"><img src="img/yelp_logo_50x25.png" alt="Yelp!" /></div>
         </div>
