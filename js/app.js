@@ -1,9 +1,8 @@
 var app = app || {};
 
 $(function() {
+    "use strict";
     app.viewModel = (function() {
-        "use strict";
-
         // Some view model properties
         var places = ko.observableArray(),
             selectedPlace = ko.observable(),
@@ -38,7 +37,7 @@ $(function() {
             initialize = function() {
                 // Initialize our list of places from the hard coded data in the model.
                 $.each(app.places.Places, function(i, p) {
-                    var newPlace = new app.Place(map, i, p)
+                    var newPlace = new app.Place(map, i, p);
                     google.maps.event.addListener(newPlace.marker, 'click', function() {
                         updateSelectedPlace(newPlace);
                     });
@@ -56,8 +55,8 @@ $(function() {
                         map.setCenter(selectedPlace().position);
                     } else {
                         map.setCenter(Orlando);
-                    };
-                })
+                    }
+                });
 
                 // Get ICanHaz templates
                 ich.grabTemplates();
